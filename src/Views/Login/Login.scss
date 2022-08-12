@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+.background-login{
+    display: flex;
+    width: 100vw;
+    height: 70vh;
+    background-color: #87DA8F;
+    flex-direction: column;    
+    
+    justify-items: center;
+    position: fixed;
+}
+
+.nav-login{
+    width: 100vw;
+    height: 5rem;
+    position: fixed;
+    padding: 1rem;
+}
+
+.form-login{
+    width: 35rem;
+    height: 32rem;
+    margin-top: 10vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: rgb(255, 255, 255);
+    border-radius: 1rem;
+    
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto; 
+    position: relative; 
+    
+    padding: 3rem;
+    font-family: 'Nunito', sans-serif;
+
+
+    
+    p{
+        margin-bottom: 1rem;
+        text-align: left;
+        font-size: 2rem;
+    }
+    .input-login{
+        
+        width: 80%;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .bnt-entrar-form{
+        width: 7rem;
+        border-radius: 1rem;
+        height: 2.5rem;
+        background-color: #76FF6A;
+        border: none;
+        font-size: 1rem;
+        margin-top: 1rem;
+        
+    }
+    .bnt-voltar-form{
+        width: 7rem;
+        height: 2.5rem;
+        background-color: #fff;
+        border: none;
+        font-size: 1rem;
+        color: red;
+    }
+
+    .bnt-criar-conta-form{
+        width: 7rem;
+        border-radius: 1rem;
+        height: 2.5rem;
+        background-color: #ffffff;
+        border:1px solid #afafaf;
+        font-size: 1rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        
+    }
+    button:hover{
+        cursor: pointer;
+        
+    }
+}
+
+
+.body-login{
+    display: flex;
+    flex-direction: column;
+    background-color: #F5F5F5;
+    height: 100vh;
+    
+}

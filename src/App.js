@@ -1,4 +1,4 @@
-import Login from "./Views/Login/Login.js"
+import Login from "./views/Login/Login"
 function App() {
   return (
     <div >

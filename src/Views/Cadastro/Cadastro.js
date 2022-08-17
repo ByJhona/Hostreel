@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 // Redux
 import {connect} from 'react-redux'
 import {cadastrarCadastro} from '../../actions/cadastro';
+import { logarLogin } from "../../actions/login";
 
 
 export function Cadastro({cadastrar}){
@@ -33,11 +34,11 @@ export function Cadastro({cadastrar}){
 }
 
 const mapStateToProps = (state) => ({
-    logado: state.cadastroReducer.logado,
+    //logado: state.cadastroReducer.logado,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    logar: () => dispatch(cadastrarCadastro()),
+    cadastrar: () => dispatch(cadastrarCadastro(), logarLogin()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cadastro);
+export default connect(null, mapDispatchToProps)(Cadastro);

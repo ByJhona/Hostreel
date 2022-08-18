@@ -1,4 +1,4 @@
-import Login from "./views/Cadastro/Cadastro"
+import Login from "./views/Login/Login"
 function App() {
   return (
     <div >

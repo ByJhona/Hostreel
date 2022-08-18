@@ -1,8 +1,9 @@
 export const LOGAR = 'LOGIN::LOGAR';
 export const SAIR = 'LOGIN::SAIR';
 
+
 export const logarLogin = () => ({
-    type: LOGAR
+    type: "REQUEST_LOGIN"
 });
 
 export const sairLogin = () =>({

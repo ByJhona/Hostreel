@@ -12,7 +12,7 @@ const cadastroReducer = (state = 0, action) => {
             console.log("Editou e salvou")
             return state = false
         default:
-            console.log("Default")
+            console.log(" <<< Default")
             return state = true
     }
 }

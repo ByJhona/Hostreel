@@ -31,7 +31,7 @@ export function Login({logar, sair}){
 }
 
 const mapStateToProps = state => ({
-    login: state.loginReducer.login,
+    //login: state.loginReducer.login,
 });
 
 const mapDispatchToProps = (dispatch) => ({

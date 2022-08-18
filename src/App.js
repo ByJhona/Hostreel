@@ -1,9 +1,7 @@
-import Login from "./views/Login/Login"
+import Login from "./Views/Login/Login"
 function App() {
   return (
-    <div >
       <Login/>
-    </div>
   );
 }
 

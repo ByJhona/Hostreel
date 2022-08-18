@@ -5,7 +5,7 @@ const initialState = {
 }
 
 
-const loginReducer = (state = initialState, action) => {
+export default function loginReducer (state = initialState, action) {
     switch (action.type) {
         case LOGAR:
             console.log(state)
@@ -16,9 +16,8 @@ const loginReducer = (state = initialState, action) => {
           return {login: false}
           
         default:
-            console.log(state)
+            console.log(action.type)
           return {login: true};
       }
 };
 
-export default loginReducer;

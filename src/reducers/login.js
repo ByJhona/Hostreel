@@ -1,23 +1,19 @@
-import { LOGAR, SAIR } from "../actions/login.js";
-
 const initialState = {
-    login: true,
+    islogin: false,
+    email: '',
+    password: ''
 }
-
 
 export default function loginReducer (state = initialState, action) {
     switch (action.type) {
-        case LOGAR:
-            console.log(state)
-            return  {login: true}
+        case 'LOGIN::ENTRAR':
+            return  {islogin: state.islogin, email: state.email, password: state.password}
         
-        case SAIR:
-            console.log(state)
-          return {login: false}
+        case 'LOGIN::SAIR':
+            return {islogin: state.islogin, email: '', password: ''}
           
         default:
-            console.log(action.type)
-          return {login: true};
+            return {islogin: state.islogin, email: state.email, password: state.password};
       }
 };
 

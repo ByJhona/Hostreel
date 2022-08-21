@@ -1,27 +1,38 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeEvery, takeLatest} from 'redux-saga/effects'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { LOGAR, SAIR } from '../actions/login';
+import app from './../utils/firebase'
 
-const user = {
-    email: "jhonatan@gmail.com",
-    password: "12345678"
-}
-function* login(){
-    console.log("teste")
 
-    const auth = getAuth();
+function* login(action){
+    const auth = getAuth(app);
 
+    const user = {
+        email: action.payload.email,
+        password: action.payload.password
+    }
+   
     signInWithEmailAndPassword(auth, user.email, user.password)
         .then(() => {
-            console.log("Logado")
+            put({type: 'LOGIN::ENTRAR', payload: {
+                email: user.email,
+                password: user.password
+            }})
+            console.log("Logado!!")
         })
         .catch((error) => {
-            console.log(error.code)
+            console.log("Algo deu errado!! Usuario Não encontrado")
         })
 }
 
+function* logout(action){
+    yield put({type: 'LOGIN::SAIR'})
+}
+
+
 export default function* root(){
-    yield [
-        takeEvery(LOGAR, login),
-    ]
+    
+    yield takeLatest('REQUEST::LOGIN', login)
+    yield takeLatest('REQUEST::LOGOUT', logout)
+
+
 }

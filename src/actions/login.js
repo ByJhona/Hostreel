@@ -1,13 +1,16 @@
-export const LOGAR = 'LOGIN::LOGAR';
-export const SAIR = 'LOGIN::SAIR';
-
-
-export function logarLogin(){
+export function requestEntrar(email, password){
     return{
-        type: "REQUEST_LOGIN"
+        type: "REQUEST::LOGIN",
+        payload: {
+            email,
+            password
+
+        }
     }
 };
 
-export const sairLogin = () =>({
-    type: SAIR
-});
+export function requestSair(){
+    return{
+        type: "REQUEST::LOGOUT"
+    }
+};

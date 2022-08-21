@@ -1,10 +1,7 @@
-export const CADASTRAR = "CADASTRO::CADASTRAR";
-export const EDITAR = "CADASTRO::EDITAR"
-
 export const cadastrarCadastro = () => ({
-    type: CADASTRAR
+    type: 'REQUEST::CADASTRAR'
 })
 
 export const editarCadastro = () => ({
-    type: EDITAR
+    type: 'REQUEST::EDITAR'
 })

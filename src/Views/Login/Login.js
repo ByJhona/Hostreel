@@ -11,6 +11,12 @@ import * as TodoActions from '../../actions/login';
 import { bindActionCreators } from 'redux';
 import { useDispatch, useSelector } from "react-redux";
 
+//Rotas
+import { Link } from "react-router-dom";
+//Componenetes
+import Nav from '../../components/nav/Nav'
+
+
 export function Login(){
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -19,6 +25,7 @@ export function Login(){
     return(
         
         <div className="body-login">
+            <Nav/>
             
             <div className="background-login">
             
@@ -32,8 +39,13 @@ export function Login(){
                 className="input" onChange={(data) => setSenha(data.target.value)}
                 />
 
-                <button className="bnt-entrar-form" onClick={() => dispatch(requestEntrar(email, senha))}>Entrar</button>
-                <button className="bnt-criar-conta-form" onClick={() => dispatch(requestSair())}>Criar Conta</button>
+                <Link to='/home'>
+                    <button className="bnt-entrar-form" onClick={() => dispatch(requestEntrar(email, senha))}>Entrar</button>
+                </Link>
+
+                <Link to='/cadastro'>
+                    <button className="bnt-criar-conta-form" onClick={() => dispatch(requestSair())}>Criar Conta</button>
+                </Link>
                 
 
             </div>

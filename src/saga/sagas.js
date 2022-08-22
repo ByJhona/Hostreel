@@ -36,6 +36,7 @@ function* logout(action){
 // <<<<<<<<<<<<<<<<<<<< LOGIN
 
 // >>>>>>>>>>>>>>>>>>>> CADASTRO::EDITAR
+
 function* cadastrarUsuario(action){
     console.log(action)
     const db = getDatabase(app);
@@ -44,14 +45,29 @@ function* cadastrarUsuario(action){
         email: action.payload.email,
         password: action.payload.password
     }
-
+    //Erro na hora de criar PK - não pode conter ponto
     set(ref(db, `users/${user.email}`), {
         name: user.name,
         email: user.email,
         password: user.password
     })
-    .then()
+    .then(() => {
+        
+    })
     .catch();
+
+    // Nao verifica se ja tem no bd
+    yield put({type: 'CADASTRO::CADASTRAR', payload: {
+        name: user.name,
+        email: user.email,
+        password: user.password
+    }})
+    
+    yield put({type: 'LOGIN::ENTRAR', payload: {
+        email: user.email,
+        password: user.password
+    }})
+
 }
 // <<<<<<<<<<<<<<<<<<<< CADASTRO::EDITAR
 

@@ -1,14 +1,17 @@
+//Constante inicial
+const initialState = {
+    name: '',
+    email: '',
+    password: ''
+}
+
 //actions
-
-
-const cadastroReducer = (state = 0, action) => {
+const cadastroReducer = (state = initialState, action) => {
     switch (action.type){
         case 'CADASTRO::CADASTRAR':
-            return state = true
-        case 'CADASTRO::EDITAR':
-            return state = false
+            return {name: action.payload.name, email: action.payload.email, password: action.payload.password}
         default:
-            return state = true
+            return {name: state.name, email: state.email, password: state.password}
     }
 }
 

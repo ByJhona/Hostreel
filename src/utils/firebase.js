@@ -10,7 +10,8 @@ const firebaseConfig = {
   projectId: "hostreel",
   storageBucket: "hostreel.appspot.com",
   messagingSenderId: "648543990230",
-  appId: "1:648543990230:web:ba8f2e8e858b5ee1a07477"
+  appId: "1:648543990230:web:ba8f2e8e858b5ee1a07477",
+  databaseURL: "https://hostreel-default-rtdb.asia-southeast1.firebasedatabase.app/"
 };
 const app = initializeApp(firebaseConfig);
 

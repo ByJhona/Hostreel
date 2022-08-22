@@ -5,14 +5,20 @@ const initialState = {
 }
 
 export default function loginReducer (state = initialState, action) {
+    //8const user = action;
     switch (action.type) {
         case 'LOGIN::ENTRAR':
-            return  {islogin: state.islogin, email: state.email, password: state.password}
+            console.log(state)
+        console.log(action)
+
+            return  {islogin: true, email: action.payload.email, password: action.payload.password}
         
         case 'LOGIN::SAIR':
-            return {islogin: state.islogin, email: '', password: ''}
+            return {islogin: false, email: '', password: ''}
           
         default:
+            console.log(state)
+        console.log(action)
             return {islogin: state.islogin, email: state.email, password: state.password};
       }
 };

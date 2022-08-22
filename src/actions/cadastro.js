@@ -1,7 +1,11 @@
-export const cadastrarCadastro = () => ({
-    type: 'REQUEST::CADASTRAR'
-})
+export function requestCadastro(name, email, password){
+    return{
+        type: "REQUEST::CADASTRAR",
+        payload: {
+            name,
+            email,
+            password
 
-export const editarCadastro = () => ({
-    type: 'REQUEST::EDITAR'
-})
+        }
+    }
+};

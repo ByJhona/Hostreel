@@ -4,7 +4,7 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store from './store/index'
 
-import Login from "./Views/Login/Login"
+import Login from "./Views/Cadastro/Cadastro"
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -8,7 +8,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Cadastro from "./Views/Cadastro/Cadastro"
 import Login from "./Views/Login/Login"
-
+import Dashboard from './Views/Dashboard/Dashboard';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -18,6 +18,7 @@ root.render(
         <Routes>
           <Route path='login' element={<Login/>}/>
           <Route path='cadastro' element={<Cadastro/>}/>
+          <Route path='dashboard' element={<Dashboard/>}/>
           <Route
       path="*"
       element={

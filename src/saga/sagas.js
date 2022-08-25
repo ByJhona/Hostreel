@@ -1,81 +1,161 @@
-import {call, put, takeEvery, takeLatest} from 'redux-saga/effects'
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref, set, get, child} from "firebase/database";
+import { getDatabase, ref, set, get, child, update } from "firebase/database";
 import app from './../utils/firebase'
 
+//rotas
+
 // >>>>>>>>>>>>>>>>>>>>> LOGIN
-function* login(action){
-    const auth = getAuth(app);
-
-    const user = {
+function* login(action) {
+    const auth = yield getAuth(app);
+    var islogin = false;
+    var user = {
         email: action.payload.email,
-        password: action.payload.password
+        senha: action.payload.senha
     }
 
-    const dbRef = ref(getDatabase(app));
-    get(child(dbRef, `users/${user.email}`)).then((snapshot) => {
-    if (snapshot.exists()) {
-        
-        put({type: 'LOGIN::ENTRAR', payload: {
-            email: user.email,
-            password: user.password
-        }})
-        console.log("Logado!!")
-    } else {
-        console.log("No data available");
-    }
+    const dbRef = yield ref(getDatabase(app));
+    yield get(child(dbRef, `users/${user.email}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            user = snapshot.val();
+            islogin = true;
+
+
+        } else {
+            console.log("No data available");
+        }
     }).catch((error) => {
         console.error(error);
     });
-   
-    
+
+    //Colocar Flag
+    if (islogin) {
+        console.log(user)
+        yield put({
+            type: 'USUARIO::CONECTAR', payload: {
+                islogin: true,
+                nome: user.nome,
+                email: user.email,
+                senha: user.senha,
+                idioma: user.idioma,
+                aniversario: user.aniversario,
+                descricao: user.descricao
+            }
+        })
+
+    }
 }
-function* logout(action){
-    yield put({type: 'LOGIN::SAIR'})
+//Nao finalizadwa
+function* logout(action) {
+    yield put({ type: 'LOGIN::SAIR' })
 }
 // <<<<<<<<<<<<<<<<<<<< LOGIN
 
-// >>>>>>>>>>>>>>>>>>>> CADASTRO::EDITAR
+// >>>>>>>>>>>>>>>>>>>> CADASTRAR
 
-function* cadastrarUsuario(action){
+function* cadastrarUsuario(action) {
     console.log(action)
     const db = getDatabase(app);
     const user = {
-        name: action.payload.name,
+        nome: action.payload.nome,
         email: action.payload.email,
-        password: action.payload.password
+        senha: action.payload.senha,
+        idioma: '',
+        aniversario: '',
+        descricao: ''
     }
+    var islogin = false;
     //Erro na hora de criar PK - não pode conter ponto
-    set(ref(db, `users/${user.email}`), {
-        name: user.name,
+    yield set(ref(db, `users/${user.email}`), {
+        islogin: true,
+        nome: user.nome,
         email: user.email,
-        password: user.password
+        senha: user.senha,
+        idioma: user.idioma,
+        aniversario: user.aniversario,
+        descricao: user.descricao
     })
-    .then(() => {
-        
-    })
-    .catch();
+        .then(() => {
+            islogin = true;
+        })
+        .catch();
 
     // Nao verifica se ja tem no bd
-    yield put({type: 'CADASTRO::CADASTRAR', payload: {
-        name: user.name,
-        email: user.email,
-        password: user.password
-    }})
-    
-    yield put({type: 'LOGIN::ENTRAR', payload: {
-        email: user.email,
-        password: user.password
-    }})
+
+    if (islogin) {
+        yield put({
+            type: 'USUARIO::CADASTRAR', payload: {
+                islogin: true,
+                nome: user.nome,
+                email: user.email,
+                senha: user.senha,
+                idioma: user.idioma,
+                aniversario: user.aniversario,
+                descricao: user.descricao
+            }
+        })
+
+    }
+
 
 }
-// <<<<<<<<<<<<<<<<<<<< CADASTRO::EDITAR
+// <<<<<<<<<<<<<<<<<<<< CADASTRAR
 
-export default function* root(){
-    
-    yield takeLatest('REQUEST::LOGIN', login)
+function* editarUsuario(action) {
+    alert("Entrou")
+    const db = getDatabase(app);
+
+    var islogin = false;
+
+    const user = {
+        islogin: true,
+        nome: action.payload.nome,
+        email: action.payload.email,
+        senha: action.payload.senha,
+        idioma: action.payload.idioma,
+        aniversario: action.payload.aniversario,
+        descricao: action.payload.descricao
+    }
+
+    yield update(ref(db, `users/${user.email}`), {
+        islogin: user.islogin,
+        nome: user.nome,
+        email: user.email,
+        senha: user.senha,
+        idioma: user.idioma,
+        aniversario: user.aniversario,
+        descricao: user.descricao
+    })
+        .then(() => {
+            islogin = true;
+        })
+        .catch();
+
+    if (islogin) {
+        console.log('entrou aqui')
+        yield put({
+            type: 'USUARIO::EDITAR',
+            payload: {
+                islogin: user.islogin,
+                nome: user.nome,
+                email: user.email,
+                senha: user.senha,
+                idioma: user.idioma,
+                aniversario: user.aniversario,
+                descricao: user.descricao
+            }
+        })
+    }
+
+
+}
+
+export default function* root() {
+
+    yield takeLatest('REQUEST::USUARIO::CONECTAR', login)
     yield takeLatest('REQUEST::LOGOUT', logout)
-    yield takeLatest('REQUEST::CADASTRAR', cadastrarUsuario)
+    yield takeLatest('REQUEST::USUARIO::CADASTRAR', cadastrarUsuario)
+    yield takeLatest('REQUEST::USUARIO::EDITAR', editarUsuario)
 
 
 }

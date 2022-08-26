@@ -38,3 +38,12 @@ export function requestUsuarioEditar(nome, email, senha, idioma, aniversario, de
         }
     }
 }
+
+export function requestUsuarioExcluir(email){
+    return{
+        type: 'REQUEST::USUARIO::EXCLUIR',
+        payload:{
+            email
+        }
+    }
+}

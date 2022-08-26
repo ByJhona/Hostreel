@@ -37,6 +37,12 @@ export default function usuarioReducer(state = initialState, action) {
                 senha: action.payload.senha, idioma: action.payload.idioma, aniversario: action.payload.aniversario,
                 descricao: action.payload.descricao
             }
+        case 'USUARIO::EXCLUIR':
+            return {
+                islogin: action.payload.islogin, nome: action.payload.nome, email: action.payload.email,
+                senha: action.payload.senha, idioma: action.payload.idioma, aniversario: action.payload.aniversario,
+                descricao: action.payload.descricao
+            }
 
         default:
             return {

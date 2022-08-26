@@ -1,6 +1,6 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { getDatabase, ref, set, get, child, update } from "firebase/database";
+import { getAuth, deleteUser } from "firebase/auth";
+import { getDatabase, ref, set, get, child, update, remove, push } from "firebase/database";
 import app from './../utils/firebase'
 
 //rotas
@@ -101,8 +101,8 @@ function* cadastrarUsuario(action) {
 }
 // <<<<<<<<<<<<<<<<<<<< CADASTRAR
 
+// >>>>>>>>>>>>>>>>>>>> EDITAR
 function* editarUsuario(action) {
-    alert("Entrou")
     const db = getDatabase(app);
 
     var islogin = false;
@@ -149,13 +149,81 @@ function* editarUsuario(action) {
 
 
 }
+// <<<<<<<<<<<<<<<<<<<< EDITAR
+// >>>>>>>>>>>>>>>>>>>> EXCLUIR
+function* excluirUsuario(action) {
+    const db = getDatabase(app);
+    alert("EItaa")
 
+    const user = {
+        email: action.payload.email,
+    }
+
+    yield remove(ref(db, `users/${user.email}`));
+
+    yield put({
+        type: 'USUARIO::EXCLUIR',
+        payload: {
+            islogin: false,
+            nome: '',
+            email: '',
+            senha: '',
+            idioma: '',
+            aniversario: '',
+            descricao: ''
+        }
+    })
+}
+// <<<<<<<<<<<<<<<<<<<< EXCLUIR
+
+// >>>>>>>>>>>>>>>>>>>> CADASTRAR HOSPEDAGEM
+function* cadastrarHospedagem(action) {
+    alert('Entrou aqui')
+    const db = getDatabase(app);
+    var host = {
+        idusuario: action.payload.idusuario,
+        cidade: action.payload.cidade,
+        pais: action.payload.pais,
+        descricao: action.payload.descricao
+    }
+    
+    var islogin = false;
+    yield push(ref(db, `hospedagem/`), {
+        idusuario: host.idusuario,
+        cidade: host.cidade,
+        pais: host.pais,
+        descricao: host.descricao
+    }).then(() => {
+        islogin = true;
+    })
+    .catch();
+    //Erro na hora de criar PK - não pode conter ponto
+    
+    // Nao verifica se ja tem no bd
+
+    if (islogin) {
+        yield put({
+            type: 'HOSPEDAGEM::CADASTRAR', payload: {
+                idusuario: host.idusuario,
+                cidade: host.cidade,
+                pais: host.pais,
+                descricao: host.descricao
+            }
+        })
+
+    }
+
+
+}
+// <<<<<<<<<<<<<<<<<<<< CADASTRAR HOSPEDAGEM
 export default function* root() {
 
-    yield takeLatest('REQUEST::USUARIO::CONECTAR', login)
-    yield takeLatest('REQUEST::LOGOUT', logout)
-    yield takeLatest('REQUEST::USUARIO::CADASTRAR', cadastrarUsuario)
-    yield takeLatest('REQUEST::USUARIO::EDITAR', editarUsuario)
+    yield takeLatest('REQUEST::USUARIO::CONECTAR', login);
+    yield takeLatest('REQUEST::LOGOUT', logout);
+    yield takeLatest('REQUEST::USUARIO::CADASTRAR', cadastrarUsuario);
+    yield takeLatest('REQUEST::USUARIO::EDITAR', editarUsuario);
+    yield takeLatest('REQUEST::USUARIO::EXCLUIR', excluirUsuario);
+    yield takeLatest('REQUEST::HOSPEDAGEM::CADASTRAR', cadastrarHospedagem);
 
 
 }

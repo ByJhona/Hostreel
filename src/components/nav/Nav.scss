@@ -1,8 +1,13 @@
-.nav{
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap');
+
+.nav {
+    font-family: 'Nunito', sans-serif;
+
     display: flex;
-flex-direction: row;
-justify-content: end;
-   // position: fixed;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+    // position: fixed;
     width: 100vw;
     height: 4rem;
     background-color: white;
@@ -12,4 +17,33 @@ justify-content: end;
     border-color: rgb(211, 211, 211);
 
     padding: 0 2rem 0 2rem;
+
+
+    .nav-log {
+        float: left
+    }
+
+    .nav-opcoes{
+        width: 20rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        
+
+    }
+
+    .bnt-nav-entrar {
+        height: 4rem;
+        width: 4rem;
+        background-color: rgb(100, 197, 100);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        text-decoration: none;
+        color: black;
+        
+    }
 }

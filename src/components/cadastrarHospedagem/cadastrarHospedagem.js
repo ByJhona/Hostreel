@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 
 //Actions
-import { requestHospedagemCadastrar } from '../../actions/hospedagem';
+import { requestHospedagemAdicionarFoto, requestHospedagemCadastrar } from '../../actions/hospedagem';
 
 
 
@@ -36,13 +36,14 @@ function CadastrarHospedagem({idusuario}) {
 
             <TextField id="outlined-basic" label="Descrição" variant="outlined"
                 className="input" onChange={(data) => setDescricaoL(data.target.value)}/>
-            <button className="bnt-adicionar-fotos" >Adicionar Fotos</button>
+            <input className="bnt-adicionar-fotos" type='file' />
+            <Link to='/home'>Home</Link>
             <button className='bnt-cadastrar-hospedagem' onClick={() => dispatch(requestHospedagemCadastrar(idusuario, cidadeL, paisL, descricaoL))}>Oferecer Hospedagem</button>
-
-
         </div>
     )
 }
+
+
 
 function mapStateToProps(state) {
     return {

@@ -1,6 +1,7 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import { getAuth, deleteUser } from "firebase/auth";
-import { getDatabase, ref, set, get, child, update, remove, push } from "firebase/database";
+import { getDatabase, ref, set, get, child, update, remove, push, orderByKey, limitToLast } from "firebase/database";
+import { getStorage, uploadBytes, uploadBytesResumable } from "firebase/storage";
 import app from './../utils/firebase'
 
 //rotas
@@ -19,7 +20,6 @@ function* login(action) {
         if (snapshot.exists()) {
             user = snapshot.val();
             islogin = true;
-
 
         } else {
             console.log("No data available");
@@ -153,7 +153,6 @@ function* editarUsuario(action) {
 // >>>>>>>>>>>>>>>>>>>> EXCLUIR
 function* excluirUsuario(action) {
     const db = getDatabase(app);
-    alert("EItaa")
 
     const user = {
         email: action.payload.email,
@@ -178,7 +177,6 @@ function* excluirUsuario(action) {
 
 // >>>>>>>>>>>>>>>>>>>> CADASTRAR HOSPEDAGEM
 function* cadastrarHospedagem(action) {
-    alert('Entrou aqui')
     const db = getDatabase(app);
     var host = {
         idusuario: action.payload.idusuario,
@@ -186,9 +184,9 @@ function* cadastrarHospedagem(action) {
         pais: action.payload.pais,
         descricao: action.payload.descricao
     }
-    
+
     var islogin = false;
-    yield push(ref(db, `hospedagem/`), {
+    yield push(ref(db, `hospedagens/`), {
         idusuario: host.idusuario,
         cidade: host.cidade,
         pais: host.pais,
@@ -196,26 +194,74 @@ function* cadastrarHospedagem(action) {
     }).then(() => {
         islogin = true;
     })
-    .catch();
+        .catch();
     //Erro na hora de criar PK - não pode conter ponto
-    
+
     // Nao verifica se ja tem no bd
 
-    if (islogin) {
-        yield put({
-            type: 'HOSPEDAGEM::CADASTRAR', payload: {
-                idusuario: host.idusuario,
-                cidade: host.cidade,
-                pais: host.pais,
-                descricao: host.descricao
-            }
-        })
+    if (islogin) {//Carrega novamente 
+        yield listarHospedagens();
 
     }
 
 
 }
 // <<<<<<<<<<<<<<<<<<<< CADASTRAR HOSPEDAGEM
+
+function* listarHospedagens() {
+    //pega do banco de dados
+    
+    var isOk = false;
+    const dbRef = yield ref(getDatabase(app), `hospedagens/`);
+    var host = [];
+    yield get(dbRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            //transformar object em arrar
+
+            host = snapshot.val();
+            isOk = true;
+            console.log(host)
+
+            //
+            var arr = Object.entries(host)
+            host = arr;
+            console.log(host)
+            //
+
+
+
+        } else {
+            console.log("No data available");
+        }
+    }).catch((error) => {
+        console.error(error);
+    });
+
+    //Coloca o array como variavel global
+    if (isOk) {
+        yield put({
+            type: 'HOSPEDAGEM::LISTAR', payload: {
+                host
+            }
+        })
+    }
+
+}
+
+// >>>>>>>>>>>>>>>>>>>> ADICIONAR FOTO
+function* adicionarFotoHospedagem(action){
+    const storage = getStorage(app);
+
+    // curadoria
+    action.payload.imagem.preventDefault();
+    const file = action.payload.target[0]?.files[0]
+    //
+
+    yield uploadBytesResumable(ref(storage, 'imagem'), file).then((snapshot) => {
+        console.log('Uploaded a blob or file!');
+      });
+}
+//<<<<<<<<<<<<<<<<<<<<< ADICIONAR FOTO
 export default function* root() {
 
     yield takeLatest('REQUEST::USUARIO::CONECTAR', login);
@@ -224,6 +270,8 @@ export default function* root() {
     yield takeLatest('REQUEST::USUARIO::EDITAR', editarUsuario);
     yield takeLatest('REQUEST::USUARIO::EXCLUIR', excluirUsuario);
     yield takeLatest('REQUEST::HOSPEDAGEM::CADASTRAR', cadastrarHospedagem);
+    yield takeLatest('REQUEST::HOSPEDAGEM::LISTAR', listarHospedagens);
+    yield takeLatest('REQUEST::HOSPEDAGEM::ADICIONAR::FOTO', adicionarFotoHospedagem);
 
 
 }

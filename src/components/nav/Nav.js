@@ -24,20 +24,25 @@ import { connect } from 'react-redux';
 
 
 
-function Nav({ nome }) {
+function Nav({ nome, islogin }) {
     return (
         <div className="nav">
+            <h1 className='nav-logo'>Hostreel</h1>
+            <div className='nav-opcoes'>
             <Link to='/home'>Início</Link>
-            <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+
+            {islogin ? <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                 <div>{nome}</div>
                 <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-            </Box>
+            </Box> : <Link to='/login' className='bnt-nav-entrar'>Entrar</Link>}
+            </div>
         </div>
     )
 }
 
 function mapStateToProps(state) {
     return {
+        islogin: state.usuario.islogin,
         nome: state.usuario.nome,
     }
 }

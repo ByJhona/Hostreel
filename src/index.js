@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Cadastro from "./Views/Cadastro/Cadastro"
 import Login from "./Views/Login/Login"
 import Dashboard from './Views/Dashboard/Dashboard';
+import Home from './Views/Home/Home';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
+        <Route path='home' element={<Home/>}/>
           <Route path='login' element={<Login/>}/>
           <Route path='cadastro' element={<Cadastro/>}/>
           <Route path='dashboard' element={<Dashboard/>}/>

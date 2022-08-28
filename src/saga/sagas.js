@@ -179,7 +179,8 @@ function* excluirUsuario(action) {
 function* cadastrarHospedagem(action) {
     const db = getDatabase(app);
     var host = {
-        idusuario: action.payload.idusuario,
+        locador: action.payload.locador,
+        locatario: action.payload.locatario,
         cidade: action.payload.cidade,
         pais: action.payload.pais,
         descricao: action.payload.descricao
@@ -187,7 +188,8 @@ function* cadastrarHospedagem(action) {
 
     var islogin = false;
     yield push(ref(db, `hospedagens/`), {
-        idusuario: host.idusuario,
+        locador: host.locador,
+        locatario: host.locatario,
         cidade: host.cidade,
         pais: host.pais,
         descricao: host.descricao

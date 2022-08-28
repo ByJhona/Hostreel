@@ -1,0 +1,52 @@
+.home-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.home-input-pesquisa{
+    width: 30rem;
+    height: 3rem;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(202, 202, 202);
+    border-radius: 2rem;
+    padding-left: 1rem;
+
+}
+
+.home-body-pesquisa{
+    background: url('https://images.unsplash.com/photo-1430285561322-7808604715df?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'); 
+    width: 100%;
+    height: 25rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-body-conteudos{
+    width: 90vw;
+}
+
+.home-cards{
+    display: flex;
+    flex-wrap: wrap-reverse;
+    justify-content: space-around;
+}
+
+
+
+
+body::-webkit-scrollbar {
+    width: 12px;               /* width of the entire scrollbar */
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: rgb(243, 243, 243);        /* color of the tracking area */
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: green;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+  }

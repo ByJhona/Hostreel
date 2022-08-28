@@ -38,7 +38,7 @@ function CadastrarHospedagem({idusuario}) {
                 className="input" onChange={(data) => setDescricaoL(data.target.value)}/>
             <input className="bnt-adicionar-fotos" type='file' />
             <Link to='/home'>Home</Link>
-            <button className='bnt-cadastrar-hospedagem' onClick={() => dispatch(requestHospedagemCadastrar(idusuario, cidadeL, paisL, descricaoL))}>Oferecer Hospedagem</button>
+            <button className='bnt-cadastrar-hospedagem' onClick={() => dispatch(requestHospedagemCadastrar(idusuario, 'locatario', cidadeL, paisL, descricaoL))}>Oferecer Hospedagem</button>
         </div>
     )
 }

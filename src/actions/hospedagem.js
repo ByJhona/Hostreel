@@ -1,8 +1,9 @@
-export function requestHospedagemCadastrar(idusuario, cidade, pais, descricao) {
+export function requestHospedagemCadastrar(locador, locatario, cidade, pais, descricao) {
     return {
         type: 'REQUEST::HOSPEDAGEM::CADASTRAR',
         payload: {
-            idusuario,
+            locador,
+            locatario,
             cidade,
             pais,
             descricao

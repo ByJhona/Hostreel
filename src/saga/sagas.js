@@ -1,8 +1,9 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import { getAuth, deleteUser } from "firebase/auth";
 import { getDatabase, ref, set, get, child, update, remove, push, orderByKey, limitToLast } from "firebase/database";
-import { getStorage, uploadBytes, uploadBytesResumable, ref as sRef } from "firebase/storage";
+import { getStorage, uploadBytes, uploadBytesResumable, ref as sRef, getDownloadURL } from "firebase/storage";
 import app from './../utils/firebase'
+import uuid from 'react-uuid'
 
 //rotas
 
@@ -187,35 +188,38 @@ function* cadastrarHospedagem(action) {
         foto: action.payload.foto
     }
 
-
-
-
     var islogin = false;
-    var keyHost = null;
+    var codigoHospedagem = uuid().slice(0,8);
+    var fotoUrl = null;
 
-    yield push(ref(db, `hospedagens/`), {
+
+    const storage = yield getStorage(app)
+    const fotoRef = yield sRef(storage, `hospedagens/${codigoHospedagem}/${host.foto.name}/`)
+    yield uploadBytes(fotoRef, host.foto).then((data) => {
+        alert("Foto carregada");
+        
+    })
+
+    yield getDownloadURL(fotoRef).then((data) => {
+        fotoUrl = data
+        return data
+    })
+
+    
+
+    yield set(ref(db, `hospedagens/${codigoHospedagem}`), {
         locador: host.locador,
         locatario: host.locatario,
         cidade: host.cidade,
         pais: host.pais,
         descricao: host.descricao,
-    }).then((data) => {
+        fotoUrl: fotoUrl
+    }).then(() => {
         islogin = true;
-        keyHost = data.key
-    })
-        .catch();
-    //Erro na hora de criar PK - não pode conter ponto
-    const storage = yield getStorage(app)
-    const fotoRef = yield sRef(storage, `hospedagens/${keyHost}/${host.foto.name}`)
-
-    yield uploadBytes(fotoRef, host.foto).then(() => {
-        alert("Foto carregada");
+        alert("Entrou")
     })
 
-
-
-    // Nao verifica se ja tem no bd
-
+    //Nao faz sentido essa funcao, tentar criar especifico 
     if (islogin) {//Carrega novamente 
         yield listarHospedagens();
 

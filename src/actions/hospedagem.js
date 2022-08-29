@@ -1,4 +1,4 @@
-export function requestHospedagemCadastrar(locador, locatario, cidade, pais, descricao) {
+export function requestHospedagemCadastrar(locador, locatario, cidade, pais, descricao, foto) {
     return {
         type: 'REQUEST::HOSPEDAGEM::CADASTRAR',
         payload: {
@@ -6,7 +6,8 @@ export function requestHospedagemCadastrar(locador, locatario, cidade, pais, des
             locatario,
             cidade,
             pais,
-            descricao
+            descricao,
+            foto
         }
     }
 }
@@ -22,6 +23,15 @@ export function requestHospedagemAdicionarFoto(imagem) {
         type: 'REQUEST::HOSPEDAGEM::ADICIONAR::FOTO',
         payload:{
             imagem
+        }
+    }
+}
+
+export function requestHospedagemCarregarFoto(codigoFoto) {
+    return {
+        type: 'REQUEST::HOSPEDAGEM::CARREGAR::FOTO',
+        payload:{
+            codigoFoto
         }
     }
 }

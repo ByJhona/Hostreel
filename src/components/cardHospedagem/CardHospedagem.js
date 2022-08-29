@@ -3,10 +3,18 @@ import './CardHospedagem.scss'
 
 // routes
 import { Link } from "react-router-dom";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+//import { requestHospedagemCarregarFoto } from '../../actions/hospedagem';
 
 export default function CardHospedagem({ hospedagem }) {
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        //Carrega a foto da hospedagem
+        //dispatch(() => requestHospedagemCarregarFoto(hospedagem[0]))
+    }, [])
     return (
-        <Link to={'/cadastro/' + hospedagem[0]} className='card-info'>
+        <Link to={'/hospedagem/' + hospedagem[0]} className='card-info'>
         <div className='card-hospedagem'>
             <div className='card-foto'>
 

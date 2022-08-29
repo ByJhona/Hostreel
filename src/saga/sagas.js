@@ -1,7 +1,7 @@
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import { getAuth, deleteUser } from "firebase/auth";
 import { getDatabase, ref, set, get, child, update, remove, push, orderByKey, limitToLast } from "firebase/database";
-import { getStorage, uploadBytes, uploadBytesResumable } from "firebase/storage";
+import { getStorage, uploadBytes, uploadBytesResumable, ref as sRef } from "firebase/storage";
 import app from './../utils/firebase'
 
 //rotas
@@ -183,21 +183,36 @@ function* cadastrarHospedagem(action) {
         locatario: action.payload.locatario,
         cidade: action.payload.cidade,
         pais: action.payload.pais,
-        descricao: action.payload.descricao
+        descricao: action.payload.descricao,
+        foto: action.payload.foto
     }
 
+
+
+
     var islogin = false;
+    var keyHost = null;
+
     yield push(ref(db, `hospedagens/`), {
         locador: host.locador,
         locatario: host.locatario,
         cidade: host.cidade,
         pais: host.pais,
-        descricao: host.descricao
-    }).then(() => {
+        descricao: host.descricao,
+    }).then((data) => {
         islogin = true;
+        keyHost = data.key
     })
         .catch();
     //Erro na hora de criar PK - não pode conter ponto
+    const storage = yield getStorage(app)
+    const fotoRef = yield sRef(storage, `hospedagens/${keyHost}/${host.foto.name}`)
+
+    yield uploadBytes(fotoRef, host.foto).then(() => {
+        alert("Foto carregada");
+    })
+
+
 
     // Nao verifica se ja tem no bd
 
@@ -212,7 +227,7 @@ function* cadastrarHospedagem(action) {
 
 function* listarHospedagens() {
     //pega do banco de dados
-    
+
     var isOk = false;
     const dbRef = yield ref(getDatabase(app), `hospedagens/`);
     var host = [];
@@ -251,7 +266,7 @@ function* listarHospedagens() {
 }
 
 // >>>>>>>>>>>>>>>>>>>> ADICIONAR FOTO
-function* adicionarFotoHospedagem(action){
+function* adicionarFotoHospedagem(action) {
     const storage = getStorage(app);
 
     // curadoria
@@ -261,9 +276,13 @@ function* adicionarFotoHospedagem(action){
 
     yield uploadBytesResumable(ref(storage, 'imagem'), file).then((snapshot) => {
         console.log('Uploaded a blob or file!');
-      });
+    });
 }
 //<<<<<<<<<<<<<<<<<<<<< ADICIONAR FOTO
+
+// >>>>>>>>>>>>>>>>>>> CARREGAR FOTO
+
+//<<<<<<<<<<<<<<<<<<<<<<< CARREGAR FOTO
 export default function* root() {
 
     yield takeLatest('REQUEST::USUARIO::CONECTAR', login);
@@ -274,6 +293,8 @@ export default function* root() {
     yield takeLatest('REQUEST::HOSPEDAGEM::CADASTRAR', cadastrarHospedagem);
     yield takeLatest('REQUEST::HOSPEDAGEM::LISTAR', listarHospedagens);
     yield takeLatest('REQUEST::HOSPEDAGEM::ADICIONAR::FOTO', adicionarFotoHospedagem);
+    //yield takeLatest('REQUEST::HOSPEDAGEM::CARREGAR::FOTO', carregarFotoHospedagem);
+
 
 
 }

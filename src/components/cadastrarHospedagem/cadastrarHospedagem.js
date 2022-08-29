@@ -20,11 +20,12 @@ import TextField from '@mui/material/TextField';
 
 function CadastrarHospedagem({idusuario}) {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const [cidadeL, setCidadeL] = useState('');
     const [paisL, setPaisL] = useState('');
     const [descricaoL, setDescricaoL] = useState('');
 
+    const [foto, setFoto] = useState(null);
 
     return (
         <div className="editar-usuario">
@@ -36,9 +37,9 @@ function CadastrarHospedagem({idusuario}) {
 
             <TextField id="outlined-basic" label="Descrição" variant="outlined"
                 className="input" onChange={(data) => setDescricaoL(data.target.value)}/>
-            <input className="bnt-adicionar-fotos" type='file' />
+            <input className="bnt-adicionar-fotos" type='file' onChange={(e) => setFoto(e.target.files[0])}/>
             <Link to='/home'>Home</Link>
-            <button className='bnt-cadastrar-hospedagem' onClick={() => dispatch(requestHospedagemCadastrar(idusuario, 'locatario', cidadeL, paisL, descricaoL))}>Oferecer Hospedagem</button>
+            <button className='bnt-cadastrar-hospedagem' onClick={() => dispatch(requestHospedagemCadastrar(idusuario, 'locatario', cidadeL, paisL, descricaoL, foto))}>Oferecer Hospedagem</button>
         </div>
     )
 }

@@ -7,7 +7,7 @@ export default function hospedagemReducer(state = initialState, action) {
         case 'HOSPEDAGEM::CADASTRAR':
             return {
                 locador: action.payload.locador, locatario: action.payload.locatario, cidade: action.payload.cidade, pais: action.payload.pais,
-                descricao: action.payload.descricao
+                descricao: action.payload.descricao, foto: action.payload.foto
             }
         case 'HOSPEDAGEM::LISTAR':
             //Coloca todos os dados de uma vez no state

@@ -208,6 +208,7 @@ function* cadastrarHospedagem(action) {
     
 
     yield set(ref(db, `hospedagens/${codigoHospedagem}`), {
+        disponivel: true,
         locador: host.locador,
         locatario: host.locatario,
         cidade: host.cidade,
@@ -284,9 +285,40 @@ function* adicionarFotoHospedagem(action) {
 }
 //<<<<<<<<<<<<<<<<<<<<< ADICIONAR FOTO
 
-// >>>>>>>>>>>>>>>>>>> CARREGAR FOTO
+// >>>>>>>>>>>>>>>>>>> EDITAR HOSPEDAGEM
+function* editarHospedagem(action){
+    const db = getDatabase(app);
 
-//<<<<<<<<<<<<<<<<<<<<<<< CARREGAR FOTO
+    var host = {
+        codigoHospedagem: action.payload.codigoHospedagem,
+        locatario: action.payload.locatario,
+        cidade: action.payload.cidade,
+        pais: action.payload.pais,
+        descricao: action.payload.descricao,
+    }
+
+    yield update(ref(db, `hospedagens/${host.codigoHospedagem}`), {
+        locatario: host.locatario,
+        cidade: host.cidade,
+        pais: host.pais,
+        descricao: host.descricao
+    })
+}
+
+function* setarLocatario(action){
+    const db = getDatabase(app);
+
+    var host = {
+        codigoHospedagem: action.payload.codigoHospedagem,
+        locatario: action.payload.locatario,
+    }
+
+    yield update(ref(db, `hospedagens/${host.codigoHospedagem}`), {
+        locatario: host.locatario,
+        disponivel: false,
+    })
+}
+//<<<<<<<<<<<<<<<<<<<<<<< EDITAR HOSPEDAGEM
 export default function* root() {
 
     yield takeLatest('REQUEST::USUARIO::CONECTAR', login);
@@ -298,6 +330,10 @@ export default function* root() {
     yield takeLatest('REQUEST::HOSPEDAGEM::LISTAR', listarHospedagens);
     yield takeLatest('REQUEST::HOSPEDAGEM::ADICIONAR::FOTO', adicionarFotoHospedagem);
     //yield takeLatest('REQUEST::HOSPEDAGEM::CARREGAR::FOTO', carregarFotoHospedagem);
+    yield takeLatest('REQUEST::HOSPEDAGEM::EDITAR', editarHospedagem);
+    yield takeLatest('REQUEST::HOSPEDAGEM::SETAR::LOCATARIO', setarLocatario);
+
+
 
 
 

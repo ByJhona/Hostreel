@@ -1,0 +1,32 @@
+.hospedagem-body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.hospedagem-foto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30rem;
+    height: 30rem;
+    background-color: rgb(252, 252, 252);
+    overflow: hidden;
+
+    .hospedagem-foto-foto {
+
+
+        height: 100%;
+
+    }
+}
+
+.hospedagem-body-info {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2rem;
+
+    background-color: rgb(252, 252, 252);
+    width: 90vw;
+
+}

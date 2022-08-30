@@ -28,7 +28,6 @@ export function Login({ islogin }) {
     return (
 
         <div className="body-login">
-            <Nav />
 
             <div className="background-login">
 

@@ -28,9 +28,13 @@
     }
 
     .card-info {
-
+        height: 8rem;
         font-size: 1rem;
     }
 
 
+}
+.card-hospedagem:hover{
+    box-shadow: 5px 5px 10px green, 
+            0 0 darkgreen;
 }

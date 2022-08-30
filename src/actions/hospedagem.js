@@ -35,3 +35,29 @@ export function requestHospedagemCarregarFoto(codigoFoto) {
         }
     }
 }
+
+export function requestHospedagemEditar(codigoHospedagem, locatario, cidade, pais, descricao) {
+    return {
+        type: 'REQUEST::HOSPEDAGEM::EDITAR',
+        payload: {
+            codigoHospedagem,
+            locatario,
+            cidade,
+            pais,
+            descricao
+        }
+    }
+}
+
+export function requestHospedagemSetarLocatario(codigoHospedagem, locatario) {
+    return {
+        type: 'REQUEST::HOSPEDAGEM::SETAR::LOCATARIO',
+        payload: {
+            codigoHospedagem,
+            locatario,
+            
+        }
+    }
+}
+
+

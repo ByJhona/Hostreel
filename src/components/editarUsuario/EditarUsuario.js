@@ -15,8 +15,7 @@ import { connect } from 'react-redux';
 import { requestUsuarioEditar, requestUsuarioExcluir } from '../../actions/usuario';
 
 
-import Nav from '../../components/nav/Nav'
-
+import './EditarUsuario.scss'
 import TextField from '@mui/material/TextField';
 
 function EditarUsuario({ nomeG, emailG, senhaG, idiomaG, aniversarioG, descricaoG }) {
@@ -32,26 +31,26 @@ function EditarUsuario({ nomeG, emailG, senhaG, idiomaG, aniversarioG, descricao
     return (
         <div className="editar-usuario">
             <TextField id="outlined-basic" label="Nome" variant="outlined"
-                className="input" onChange={(data) => setNomeL(data.target.value)} value={nomeL} />
+                className="input editar-usuario" onChange={(data) => setNomeL(data.target.value)} value={nomeL} />
 
             <TextField id="outlined-basic" label="E-mail" variant="outlined"
-                className="input" value={emailG} disabled={true} />
+                className="input editar-usuario" value={emailG} disabled={true} />
 
             <TextField id="outlined-basic" label="Senha" variant="outlined"
-                className="input" onChange={(data) => setSenhaL(data.target.value)} value={senhaL}
+                className="input editar-usuario" onChange={(data) => setSenhaL(data.target.value)} value={senhaL}
             />
 
             <TextField id="outlined-basic" label="Idioma" variant="outlined"
-                className="input" onChange={(data) => setIdiomaL(data.target.value)} value={idiomaL} />
+                className="input editar-usuario" onChange={(data) => setIdiomaL(data.target.value)} value={idiomaL} />
 
             <TextField id="outlined-basic" label="Aniversario" variant="outlined"
-                className="input" onChange={(data) => setAniversarioL(data.target.value)} value={aniversarioL} />
+                className="input editar-usuario" onChange={(data) => setAniversarioL(data.target.value)} value={aniversarioL} />
 
             <TextField id="outlined-basic" label="Descricao" variant="outlined"
-                className="input" onChange={(data) => setDescricaoL(data.target.value)} value={descricaoL} />
+                className="input editar-usuario" onChange={(data) => setDescricaoL(data.target.value)} value={descricaoL} />
 
             <button className="bnt-entrar-form" onClick={(() => dispatch(requestUsuarioEditar(nomeL, emailG, senhaL, idiomaL, aniversarioL, descricaoL)))}>Alterar Dados</button>
-            <button className="bnt-entrar-form" onClick={(() => dispatch(requestUsuarioExcluir(emailG)))}>Excluir Conta</button>
+            <button className="bnt-excluir-usuario" onClick={(() => dispatch(requestUsuarioExcluir(emailG)))}>Excluir Conta</button>
 
         </div>
     )

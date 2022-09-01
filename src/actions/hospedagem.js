@@ -12,39 +12,27 @@ export function requestHospedagemCadastrar(locador, locatario, cidade, pais, des
     }
 }
 
-export function requestHospedagemListar() {
-    return {
-        type: 'REQUEST::HOSPEDAGEM::LISTAR'
-    }
-}
-
-export function requestHospedagemAdicionarFoto(imagem) {
-    return {
-        type: 'REQUEST::HOSPEDAGEM::ADICIONAR::FOTO',
-        payload:{
-            imagem
-        }
-    }
-}
-
-export function requestHospedagemCarregarFoto(codigoFoto) {
-    return {
-        type: 'REQUEST::HOSPEDAGEM::CARREGAR::FOTO',
-        payload:{
-            codigoFoto
-        }
-    }
-}
-
-export function requestHospedagemEditar(codigoHospedagem, locatario, cidade, pais, descricao) {
+export function requestHospedagemEditar(codigoHospedagem, cidade, pais, descricao) {
     return {
         type: 'REQUEST::HOSPEDAGEM::EDITAR',
         payload: {
             codigoHospedagem,
-            locatario,
             cidade,
             pais,
             descricao
+        }
+    }
+}
+
+export function requestHospedagemSetar(codigoHospedagem, cidade, pais, descricao) {
+    return {
+        type: 'REQUEST::HOSPEDAGEM::SETAR',
+        payload: {
+            codigoHospedagem,
+            cidade,
+            pais,
+            descricao
+            
         }
     }
 }
@@ -60,4 +48,18 @@ export function requestHospedagemSetarLocatario(codigoHospedagem, locatario) {
     }
 }
 
+export function requestHospedagemZerar() {
+    return {
+        type: 'REQUEST::HOSPEDAGEM::ZERAR',
+    }
+}
 
+
+export function requestHospedagemExcluir(codigoHospedagem){
+    return{
+        type: 'REQUEST::HOSPEDAGEM::EXCLUIR',
+        payload:{
+            codigoHospedagem
+        }
+    }
+}

@@ -15,6 +15,8 @@ function* login(action) {
         email: action.payload.email,
         senha: action.payload.senha
     }
+    user.email = user.email.replace('.', ',')
+
 
     const dbRef = yield ref(getDatabase(app));
     yield get(child(dbRef, `users/${user.email}`)).then((snapshot) => {
@@ -49,6 +51,9 @@ function* login(action) {
 //Nao finalizadwa
 function* logout(action) {
     yield put({ type: 'LOGIN::SAIR' })
+
+
+    
 }
 // <<<<<<<<<<<<<<<<<<<< LOGIN
 
@@ -66,6 +71,8 @@ function* cadastrarUsuario(action) {
         descricao: ''
     }
     var islogin = false;
+
+    user.email = user.email.replace('.', ',')
     //Erro na hora de criar PK - não pode conter ponto
     yield set(ref(db, `users/${user.email}`), {
         islogin: true,
@@ -161,6 +168,7 @@ function* excluirUsuario(action) {
 
     yield remove(ref(db, `users/${user.email}`));
 
+
     yield put({
         type: 'USUARIO::EXCLUIR',
         payload: {
@@ -217,7 +225,6 @@ function* cadastrarHospedagem(action) {
         fotoUrl: fotoUrl
     }).then(() => {
         islogin = true;
-        alert("Entrou")
     })
 
     //Nao faz sentido essa funcao, tentar criar especifico 
@@ -262,7 +269,7 @@ function* listarHospedagens() {
     //Coloca o array como variavel global
     if (isOk) {
         yield put({
-            type: 'HOSPEDAGEM::LISTAR', payload: {
+            type: 'HOSPEDAGENS::LISTAR', payload: {
                 host
             }
         })
@@ -271,34 +278,23 @@ function* listarHospedagens() {
 }
 
 // >>>>>>>>>>>>>>>>>>>> ADICIONAR FOTO
-function* adicionarFotoHospedagem(action) {
-    const storage = getStorage(app);
 
-    // curadoria
-    action.payload.imagem.preventDefault();
-    const file = action.payload.target[0]?.files[0]
-    //
-
-    yield uploadBytesResumable(ref(storage, 'imagem'), file).then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-    });
-}
 //<<<<<<<<<<<<<<<<<<<<< ADICIONAR FOTO
 
 // >>>>>>>>>>>>>>>>>>> EDITAR HOSPEDAGEM
 function* editarHospedagem(action){
     const db = getDatabase(app);
+    alert("entou")
 
     var host = {
         codigoHospedagem: action.payload.codigoHospedagem,
-        locatario: action.payload.locatario,
         cidade: action.payload.cidade,
         pais: action.payload.pais,
         descricao: action.payload.descricao,
     }
+    console.log(host)
 
     yield update(ref(db, `hospedagens/${host.codigoHospedagem}`), {
-        locatario: host.locatario,
         cidade: host.cidade,
         pais: host.pais,
         descricao: host.descricao
@@ -319,6 +315,70 @@ function* setarLocatario(action){
     })
 }
 //<<<<<<<<<<<<<<<<<<<<<<< EDITAR HOSPEDAGEM
+
+
+function* listarUsuarios() {
+    //pega do banco de dados
+
+    var isOk = false;
+    const dbRef = yield ref(getDatabase(app), `users/`);
+    var users = [];
+    yield get(dbRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            //transformar object em arrar
+
+            users = snapshot.val();
+            isOk = true;
+
+            //
+            var arr = Object.entries(users)
+            users = arr;
+            //
+
+
+
+        } else {
+            console.log("No data available");
+        }
+    }).catch((error) => {
+        console.error(error);
+    });
+    console.log(users)
+
+    //Coloca o array como variavel global
+    if (isOk) {
+        yield put({
+            type: 'USUARIOS::LISTAR', payload: {
+                users
+            }
+        })
+    }
+
+}
+
+function* setarHospedagem(action){
+    yield put({type: 'HOSPEDAGEM::SETAR', payload:{
+        codigoHospedagem: action.payload.codigoHospedagem,
+        cidade: action.payload.cidade,
+        pais: action.payload.pais,
+        descricao: action.payload.descricao
+    }})
+}
+
+
+function* zerarHospedagem(action){
+    yield put({type: 'HOSPEDAGEM::ZERAR'})
+}
+function* excluirHospedagem(action) {
+    const db = getDatabase(app);
+
+    const host = {
+        codigoHospedagem: action.payload.codigoHospedagem,
+    }
+
+    yield remove(ref(db, `hospedagens/${host.codigoHospedagem}`));
+}
+
 export default function* root() {
 
     yield takeLatest('REQUEST::USUARIO::CONECTAR', login);
@@ -327,11 +387,19 @@ export default function* root() {
     yield takeLatest('REQUEST::USUARIO::EDITAR', editarUsuario);
     yield takeLatest('REQUEST::USUARIO::EXCLUIR', excluirUsuario);
     yield takeLatest('REQUEST::HOSPEDAGEM::CADASTRAR', cadastrarHospedagem);
-    yield takeLatest('REQUEST::HOSPEDAGEM::LISTAR', listarHospedagens);
-    yield takeLatest('REQUEST::HOSPEDAGEM::ADICIONAR::FOTO', adicionarFotoHospedagem);
-    //yield takeLatest('REQUEST::HOSPEDAGEM::CARREGAR::FOTO', carregarFotoHospedagem);
+    yield takeLatest('REQUEST::HOSPEDAGENS::LISTAR', listarHospedagens);
     yield takeLatest('REQUEST::HOSPEDAGEM::EDITAR', editarHospedagem);
     yield takeLatest('REQUEST::HOSPEDAGEM::SETAR::LOCATARIO', setarLocatario);
+    yield takeLatest('REQUEST::HOSPEDAGEM::SETAR', setarHospedagem);
+    yield takeLatest('REQUEST::HOSPEDAGEM::ZERAR', zerarHospedagem);
+    yield takeLatest('REQUEST::HOSPEDAGEM::EXCLUIR', excluirHospedagem);
+
+
+
+
+    //USUARIOS
+    yield takeLatest('REQUEST::USUARIOS::LISTAR', listarUsuarios);
+
 
 
 

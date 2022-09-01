@@ -29,11 +29,16 @@ function Nav({ nome, islogin }) {
         <div className="nav">
             <h1 className='nav-logo'>Hostreel</h1>
             <div className='nav-opcoes'>
-            <Link to='/home'>Início</Link>
+            <Link style={{ textDecoration: 'none' }} to='/home'>Início</Link>
+            
+
 
             {islogin ? <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-                <div>{nome}</div>
-                <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Link style={{ textDecoration: 'none' }} to='/dashboard'>Dashboard</Link>
+
+            <Link style={{ textDecoration: 'none', margin: '1rem' }} to='/home'>Sair</Link>
+                <div>{nome.toUpperCase()}</div>
+                <Avatar sx={{ width: 32, height: 32, margin: 1}}>{nome.toUpperCase().substr(0, 1)}</Avatar>
             </Box> : <Link to='/login' className='bnt-nav-entrar'>Entrar</Link>}
             </div>
         </div>

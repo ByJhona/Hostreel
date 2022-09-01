@@ -11,7 +11,7 @@ import { carregarFoto } from '../../utils/firebase-api';
 export default function CardHospedagem({ hospedagem }) {
 
     return (
-        <Link to={'/hospedagem/' + hospedagem[0]} className='card-info'>
+        <Link style={{ textDecoration: 'none' }} to={'/hospedagem/' + hospedagem[0]} className='card-info'>
         <div className='card-hospedagem'>
             <div className='card-foto' >
 <img className='card-foto-foto' src={hospedagem[1].fotoUrl}/>
@@ -19,9 +19,9 @@ export default function CardHospedagem({ hospedagem }) {
 
 
             <div className='card-info'>
-                <h3>Cid: {hospedagem[1].cidade}</h3>
-                <h2>País: {hospedagem[1].pais}</h2>
-                <h2>Desc: {hospedagem[1].descricao}</h2>
+                <h5>Cid: {hospedagem[1].cidade}</h5>
+                <h5>País: {hospedagem[1].pais}</h5>
+                <h5>Desc: {hospedagem[1].descricao}</h5>
             </div>
         </div>
         </Link>

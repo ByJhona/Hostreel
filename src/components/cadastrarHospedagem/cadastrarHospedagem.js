@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 //MUI Comp
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import './CadastrarHospedagem.scss'
 
 import Box from '@mui/material/Box';
 
@@ -18,7 +20,7 @@ import { requestHospedagemAdicionarFoto, requestHospedagemCadastrar } from '../.
 
 import TextField from '@mui/material/TextField';
 
-function CadastrarHospedagem({idusuario}) {
+function CadastrarHospedagem({ idusuario }) {
 
     const dispatch = useDispatch();
     const [cidadeL, setCidadeL] = useState('');
@@ -28,17 +30,22 @@ function CadastrarHospedagem({idusuario}) {
     const [foto, setFoto] = useState(null);
 
     return (
-        <div className="editar-usuario">
+        <div className='cadastrar-hospedagem-body'>
+            <TextField id="outlined-basic" label="Descrição" variant="outlined"
+                className="input long-input" onChange={(data) => setDescricaoL(data.target.value)} />
             <TextField id="outlined-basic" label="Cidade" variant="outlined"
-                className="input" onChange={(data) => setCidadeL(data.target.value)}/>
+                className="input short-input" onChange={(data) => setCidadeL(data.target.value)} />
 
             <TextField id="outlined-basic" label="País" variant="outlined"
-                className="input" onChange={(data) => setPaisL(data.target.value)}/>
+                className="input short-input" onChange={(data) => setPaisL(data.target.value)} />
+            {console.log(cidadeL)}
 
-            <TextField id="outlined-basic" label="Descrição" variant="outlined"
-                className="input" onChange={(data) => setDescricaoL(data.target.value)}/>
-            <input className="bnt-adicionar-fotos" type='file' onChange={(e) => setFoto(e.target.files[0])}/>
-            <Link to='/home'>Home</Link>
+            <label for="file-input">
+                <h3>Adicionar foto</h3>
+                <AddPhotoAlternateIcon className='icon-add-foto'/>
+            </label>
+            <input id="file-input" type='file' onChange={(e) => setFoto(e.target.files[0])} />
+
             <button className='bnt-cadastrar-hospedagem' onClick={() => dispatch(requestHospedagemCadastrar(idusuario, 'locatario', cidadeL, paisL, descricaoL, foto))}>Oferecer Hospedagem</button>
         </div>
     )

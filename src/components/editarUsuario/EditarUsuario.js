@@ -1,20 +1,10 @@
 import React, { useState } from 'react';
-
-//MUI Comp
-
-import Box from '@mui/material/Box';
-
-//Rotas
-import { Link, Navigate } from "react-router-dom";
-
 //Redux
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 
 //Actions
 import { requestUsuarioEditar, requestUsuarioExcluir } from '../../actions/usuario';
-
-
 import './EditarUsuario.scss'
 import TextField from '@mui/material/TextField';
 
@@ -26,7 +16,6 @@ function EditarUsuario({ nomeG, emailG, senhaG, idiomaG, aniversarioG, descricao
     const [idiomaL, setIdiomaL] = useState(idiomaG);
     const [aniversarioL, setAniversarioL] = useState(aniversarioG);
     const [descricaoL, setDescricaoL] = useState(descricaoG);
-
 
     return (
         <div className="editar-usuario">

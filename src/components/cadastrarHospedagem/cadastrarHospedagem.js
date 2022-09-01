@@ -2,23 +2,17 @@ import React, { useState } from 'react';
 
 //MUI Comp
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import TextField from '@mui/material/TextField';
+
+// scss
 import './CadastrarHospedagem.scss'
-
-import Box from '@mui/material/Box';
-
-//Rotas
-import { Link } from "react-router-dom";
 
 //Redux
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 
 //Actions
-import { requestHospedagemAdicionarFoto, requestHospedagemCadastrar } from '../../actions/hospedagem';
-
-
-
-import TextField from '@mui/material/TextField';
+import { requestHospedagemCadastrar } from '../../actions/hospedagem';
 
 function CadastrarHospedagem({ idusuario }) {
 
@@ -42,7 +36,7 @@ function CadastrarHospedagem({ idusuario }) {
 
             <label for="file-input">
                 <h3>Adicionar foto</h3>
-                <AddPhotoAlternateIcon className='icon-add-foto'/>
+                <AddPhotoAlternateIcon className='icon-add-foto' />
             </label>
             <input id="file-input" type='file' onChange={(e) => setFoto(e.target.files[0])} />
 
@@ -50,8 +44,6 @@ function CadastrarHospedagem({ idusuario }) {
         </div>
     )
 }
-
-
 
 function mapStateToProps(state) {
     return {

@@ -1,26 +1,12 @@
 import React, { useState } from 'react';
-
-//MUI Comp
-
-import Box from '@mui/material/Box';
-
-//Rotas
-import { Link, Navigate } from "react-router-dom";
-
-//Redux
 import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
-
-//Actions
-import { requestUsuarioEditar, requestUsuarioExcluir } from '../../actions/usuario';
-
-
 import './EditarHospedagem.scss'
 import TextField from '@mui/material/TextField';
 import { requestHospedagemEditar, requestHospedagemExcluir, requestHospedagemZerar } from '../../actions/hospedagem';
 import { requestHospedagensListar } from '../../actions/hospedagens';
 
-function EditarHospedagem({hospedagem}) {
+function EditarHospedagem({ hospedagem }) {
 
     const hospedagemL = {
         codigoHospedagem: hospedagem.codigoHospedagem,
@@ -35,7 +21,7 @@ function EditarHospedagem({hospedagem}) {
             dispatch(requestHospedagemZerar())
             dispatch(requestHospedagensListar())
         } catch (error) {
-            
+
         }
     }
 
@@ -45,7 +31,7 @@ function EditarHospedagem({hospedagem}) {
             dispatch(requestHospedagemZerar())
             dispatch(requestHospedagensListar())
         } catch (error) {
-            
+
         }
     }
 
@@ -68,7 +54,7 @@ function EditarHospedagem({hospedagem}) {
             <TextField id="outlined-basic" label="descricao" variant="outlined"
                 className="input" onChange={(data) => setDescricao(data.target.value)} value={descricao} />
 
-            
+
 
             <button className="bnt-entrar-form" onClick={editar}>Alterar Dados</button>
             <button className="bnt-excluir-hospedagem" onClick={excluir}>Excluir Hospedagem</button>

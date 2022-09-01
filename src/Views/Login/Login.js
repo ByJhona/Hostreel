@@ -1,22 +1,10 @@
 import "./Login.scss"
-
-//Material UI
 import TextField from '@mui/material/TextField';
-
 import { useState } from "react";
-// Redux
 import { connect } from 'react-redux';
-import { requestEntrar, requestSair } from '../../actions/login';
-import * as TodoActions from '../../actions/login';
-import { bindActionCreators } from 'redux';
-import { useDispatch, useSelector } from "react-redux";
-
-//Rotas
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { Redirect, Route, Switch, Navigate } from "react-router-dom";
-
-//Componenetes
-import Nav from '../../components/nav/Nav'
+import { Navigate } from "react-router-dom";
 import { requestUsuarioConectar } from "../../actions/usuario";
 
 
@@ -41,11 +29,10 @@ export function Login({ islogin }) {
                     className="input" onChange={(data) => setSenha(data.target.value)}
                 />
 
-
                 <button className="bnt-entrar-form" onClick={() => dispatch(requestUsuarioConectar(email, senha))}>Entrar</button>
 
                 <Link to='/cadastro'>
-                    <button className="bnt-criar-conta-form" onClick={() => dispatch(requestSair())}>Criar Conta</button>
+                    <button className="bnt-criar-conta-form" onClick={''}>Criar Conta</button>
                 </Link>
 
                 {islogin ? <Navigate from='/login' to="/dashboard" /> : null}

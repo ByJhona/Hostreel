@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-//rotas
-import { Routes, Route, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { requestHospedagemSetarLocatario } from "../../actions/hospedagem";
-
-
 import Nav from '../../components/nav/Nav'
-
 import './Hospedagem.scss'
 
 
@@ -57,8 +53,6 @@ function Hospedagem({ hospedagens, islogin, emailLocatario, usuarios }) {
                     <h1>{hospedagem[1]?.descricao}</h1>
                     {hospedagem[1]?.disponivel ? <button onClick={meCandidatar}>Me candidatar</button> : null}
                 </div>
-
-
             </div>
 
             <div className='hospedagem-body-info-locador'>
@@ -67,13 +61,7 @@ function Hospedagem({ hospedagens, islogin, emailLocatario, usuarios }) {
                 <div>Idioma: {locador[1]?.idioma}</div>
                 <div>Aniversario: {locador[1]?.aniversario}</div>
                 <div>Descrição: {locador[1]?.descricao}</div>
-
-
-
             </div>
-
-
-
         </div>
     )
 }

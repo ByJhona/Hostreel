@@ -48,13 +48,7 @@ function* login(action) {
 
     }
 }
-//Nao finalizadwa
-function* logout(action) {
-    yield put({ type: 'LOGIN::SAIR' })
 
-
-    
-}
 // <<<<<<<<<<<<<<<<<<<< LOGIN
 
 // >>>>>>>>>>>>>>>>>>>> CADASTRAR
@@ -197,7 +191,7 @@ function* cadastrarHospedagem(action) {
     }
 
     var islogin = false;
-    var codigoHospedagem = uuid().slice(0,8);
+    var codigoHospedagem = uuid().slice(0, 8);
     var fotoUrl = null;
 
 
@@ -205,7 +199,7 @@ function* cadastrarHospedagem(action) {
     const fotoRef = yield sRef(storage, `hospedagens/${codigoHospedagem}/${host.foto.name}/`)
     yield uploadBytes(fotoRef, host.foto).then((data) => {
         alert("Foto carregada");
-        
+
     })
 
     yield getDownloadURL(fotoRef).then((data) => {
@@ -213,7 +207,7 @@ function* cadastrarHospedagem(action) {
         return data
     })
 
-    
+
 
     yield set(ref(db, `hospedagens/${codigoHospedagem}`), {
         disponivel: true,
@@ -282,7 +276,7 @@ function* listarHospedagens() {
 //<<<<<<<<<<<<<<<<<<<<< ADICIONAR FOTO
 
 // >>>>>>>>>>>>>>>>>>> EDITAR HOSPEDAGEM
-function* editarHospedagem(action){
+function* editarHospedagem(action) {
     const db = getDatabase(app);
     alert("entou")
 
@@ -301,7 +295,7 @@ function* editarHospedagem(action){
     })
 }
 
-function* setarLocatario(action){
+function* setarLocatario(action) {
     const db = getDatabase(app);
 
     var host = {
@@ -356,18 +350,20 @@ function* listarUsuarios() {
 
 }
 
-function* setarHospedagem(action){
-    yield put({type: 'HOSPEDAGEM::SETAR', payload:{
-        codigoHospedagem: action.payload.codigoHospedagem,
-        cidade: action.payload.cidade,
-        pais: action.payload.pais,
-        descricao: action.payload.descricao
-    }})
+function* setarHospedagem(action) {
+    yield put({
+        type: 'HOSPEDAGEM::SETAR', payload: {
+            codigoHospedagem: action.payload.codigoHospedagem,
+            cidade: action.payload.cidade,
+            pais: action.payload.pais,
+            descricao: action.payload.descricao
+        }
+    })
 }
 
 
-function* zerarHospedagem(action){
-    yield put({type: 'HOSPEDAGEM::ZERAR'})
+function* zerarHospedagem(action) {
+    yield put({ type: 'HOSPEDAGEM::ZERAR' })
 }
 function* excluirHospedagem(action) {
     const db = getDatabase(app);
@@ -382,8 +378,8 @@ function* excluirHospedagem(action) {
 export default function* root() {
 
     yield takeLatest('REQUEST::USUARIO::CONECTAR', login);
-    yield takeLatest('REQUEST::LOGOUT', logout);
     yield takeLatest('REQUEST::USUARIO::CADASTRAR', cadastrarUsuario);
+    yield takeLatest('REQUEST::USUARIOS::LISTAR', listarUsuarios);
     yield takeLatest('REQUEST::USUARIO::EDITAR', editarUsuario);
     yield takeLatest('REQUEST::USUARIO::EXCLUIR', excluirUsuario);
     yield takeLatest('REQUEST::HOSPEDAGEM::CADASTRAR', cadastrarHospedagem);
@@ -393,12 +389,6 @@ export default function* root() {
     yield takeLatest('REQUEST::HOSPEDAGEM::SETAR', setarHospedagem);
     yield takeLatest('REQUEST::HOSPEDAGEM::ZERAR', zerarHospedagem);
     yield takeLatest('REQUEST::HOSPEDAGEM::EXCLUIR', excluirHospedagem);
-
-
-
-
-    //USUARIOS
-    yield takeLatest('REQUEST::USUARIOS::LISTAR', listarUsuarios);
 
 
 

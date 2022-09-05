@@ -5,7 +5,6 @@ export default function hospedagensReducer(state = initialState, action) {
 
         case 'HOSPEDAGENS::LISTAR':
             //Coloca todos os dados de uma vez no state
-            console.log(action.payload.host)
             return action.payload.host
 
         default:

@@ -19,7 +19,7 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path='home' element={<Home />} />
+          <Route path='/' element={<Home />} />
           <Route path='hospedagem/:codigoHospedagem' element={<Hospedagem />} />
           
           <Route path='login' element={<Login />} />

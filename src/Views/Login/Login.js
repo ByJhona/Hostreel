@@ -32,7 +32,7 @@ export function Login({ islogin }) {
                 <button className="bnt-entrar-form" onClick={() => dispatch(requestUsuarioConectar(email, senha))}>Entrar</button>
 
                 <Link to='/cadastro'>
-                    <button className="bnt-criar-conta-form" onClick={''}>Criar Conta</button>
+                    <button className="bnt-criar-conta-form">Criar Conta</button>
                 </Link>
 
                 {islogin ? <Navigate from='/login' to="/dashboard" /> : null}
@@ -50,9 +50,6 @@ const mapStateToProps = state => ({
     password: state.password
 });
 
-//const mapDispatchToProps = (dispatch) => ({
-//    logar: (email) => dispatch(requestEntrar(email, '1234')),
-//    sair: () => dispatch(requestSair()),
-//});
+
 
 export default connect(mapStateToProps, null)(Login);

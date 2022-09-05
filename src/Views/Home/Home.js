@@ -48,7 +48,7 @@ function Home({ hospedagens }) {
     )
 }
 
-const mapStateToProps = state => (console.log(state.hospedagem), {
+const mapStateToProps = state => ( {
     hospedagens: state.hospedagens
 });
 

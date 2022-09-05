@@ -28,12 +28,18 @@
 
 .home-body-conteudos{
     width: 90vw;
+    margin-top: 2rem;
 }
 
 .home-cards{
     display: flex;
     flex-wrap: wrap-reverse;
     justify-content: space-around;
+    margin-top: 2rem;
+
+    background-color: #00800010;
+    border-radius: 1rem;
+    padding: 2rem;
 }
 
 
@@ -56,39 +62,3 @@ body::-webkit-scrollbar {
   //////////////////////////
   
 
-#container-plataforma{
-    display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    height: 700px;
-    background-color: #D5F5FC;
-    padding: 100px 0 200px 0;
-}
-
-#container-plataforma h2{
-    height: 100px;
-    width: 300px;
-    text-align: left;
-    margin-left: -200px;
-    line-height: 110%;
-    
-}
-
-#container-plataforma p{
-    margin-left: -200px;
-    margin-top: 4rem;
-    height: 200px;
-    width: 300px;
-    text-align: left;
-    font-size: 18px;
-    color: #433939;
-    font-weight: 400;
-    line-height: 140%;
-}
-
-#container-plataforma h2 p{
-    margin-top: 10px;
-    font-size: 18px;
-    color: #433939;
-    font-weight: 400;
-}

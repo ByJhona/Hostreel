@@ -15,7 +15,6 @@ function Hospedagem({ hospedagens, islogin, emailLocatario, usuarios }) {
 
 
     const buscaHospedagem = () => {
-        console.log(hospedagens)
 
         hospedagens.map((data) => {
             if (data[0] == props.codigoHospedagem) setHospedagem(data)
@@ -23,7 +22,6 @@ function Hospedagem({ hospedagens, islogin, emailLocatario, usuarios }) {
     }
 
     const buscaLocador = () => {
-        console.log(usuarios)
         usuarios.map((data) => {
             if (data[1].locador == hospedagem[1]?.locador) setLocador(data)
         })

@@ -5,7 +5,6 @@ export default function usuariosReducer(state = initialState, action) {
 
         //Acao que carrega as informacoes do banco
         case 'USUARIOS::LISTAR':
-            console.log(action.payload.users)
             return action.payload.users
 
         

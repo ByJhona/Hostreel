@@ -12,14 +12,12 @@ export default function hospedagemReducer(state = initialState, action) {
 
         case 'HOSPEDAGEM::SETAR':
             //Coloca todos os dados de uma vez no state
-            console.log(action.payload)
             return {
                 codigoHospedagem: action.payload.codigoHospedagem, cidade: action.payload.cidade, pais: action.payload.pais,
                 descricao: action.payload.descricao
             }
         case 'HOSPEDAGEM::ZERAR':
             //Coloca todos os dados de uma vez no state
-            console.log(state)
             return {}
 
         default:

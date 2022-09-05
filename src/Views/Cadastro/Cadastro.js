@@ -37,7 +37,7 @@ function Cadastro({ isloginG }) {
                     className="input" onChange={(data) => setPassword(data.target.value)} />
                 <button className="bnt-entrar-form" onClick={() => dispatch(requestUsuarioCadastar(name, email, password))}>Cadastrar</button>
 
-                <button className="bnt-cancelar-form" onClick={<Navigate to='/home' />}>Cancelar</button>
+                <button className="bnt-cancelar-form" onClick={<Navigate to='/' />}>Cancelar</button>
 
                 {isloginG ? <Navigate from='/cadastro' to="/dashboard" /> : null}
 

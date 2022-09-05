@@ -21,8 +21,10 @@ function* login(action) {
     const dbRef = yield ref(getDatabase(app));
     yield get(child(dbRef, `users/${user.email}`)).then((snapshot) => {
         if (snapshot.exists()) {
-            user = snapshot.val();
-            islogin = true;
+            if (user.senha == snapshot.val().senha) {
+                user = snapshot.val();
+                islogin = true;
+            }
 
         } else {
             console.log("No data available");
@@ -33,7 +35,6 @@ function* login(action) {
 
     //Colocar Flag
     if (islogin) {
-        console.log(user)
         yield put({
             type: 'USUARIO::CONECTAR', payload: {
                 islogin: true,
@@ -54,7 +55,6 @@ function* login(action) {
 // >>>>>>>>>>>>>>>>>>>> CADASTRAR
 
 function* cadastrarUsuario(action) {
-    console.log(action)
     const db = getDatabase(app);
     const user = {
         nome: action.payload.nome,
@@ -134,7 +134,6 @@ function* editarUsuario(action) {
         .catch();
 
     if (islogin) {
-        console.log('entrou aqui')
         yield put({
             type: 'USUARIO::EDITAR',
             payload: {
@@ -243,12 +242,10 @@ function* listarHospedagens() {
 
             host = snapshot.val();
             isOk = true;
-            console.log(host)
 
             //
             var arr = Object.entries(host)
             host = arr;
-            console.log(host)
             //
 
 
@@ -286,7 +283,6 @@ function* editarHospedagem(action) {
         pais: action.payload.pais,
         descricao: action.payload.descricao,
     }
-    console.log(host)
 
     yield update(ref(db, `hospedagens/${host.codigoHospedagem}`), {
         cidade: host.cidade,
@@ -337,7 +333,6 @@ function* listarUsuarios() {
     }).catch((error) => {
         console.error(error);
     });
-    console.log(users)
 
     //Coloca o array como variavel global
     if (isOk) {

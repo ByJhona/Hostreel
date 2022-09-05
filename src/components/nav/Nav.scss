@@ -5,7 +5,7 @@
 
     display: flex;
     flex-direction: row;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
     // position: fixed;
     width: 100%;
@@ -19,18 +19,29 @@
     padding: 0 2rem 0 2rem;
 
 
-    .nav-log {
-        float: left
+    .nav-logo {
+        display: flex;
+        flex-direction: row;
+        float: left;
+        justify-content: center;
+        text-align: center;
+        font-size: 2.7rem;
+        //background-color: red;
     }
 
-    .nav-opcoes{
-        width: 20rem;
+    .logo {
+        width: 3rem;
+        //background-color: aquamarine;
+    }
+
+    .nav-opcoes {
+        width: 25rem;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
 
-        
+
 
     }
 
@@ -44,10 +55,10 @@
 
         text-decoration: none;
         color: black;
-        
+
     }
 }
 
-.a{
+.a {
     text-decoration: none;
 }

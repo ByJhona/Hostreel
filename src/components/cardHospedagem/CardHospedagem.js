@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function CardHospedagem({ hospedagem }) {
 
     return (
-        <Link style={{ textDecoration: 'none' }} to={'/hospedagem/' + hospedagem[0]} className='card-info'>
+        <Link style={{ textDecoration: 'none', color: 'black' }} to={'/hospedagem/' + hospedagem[0]} className='card-info'>
             <div className='card-hospedagem'>
                 <div className='card-foto' >
                     <img className='card-foto-foto' src={hospedagem[1].fotoUrl} />
